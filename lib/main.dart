@@ -4,7 +4,7 @@ import 'package:travel_picks/delete_favouriten_entry.dart';
 import 'package:travel_picks/land_list.dart';
 import 'package:travel_picks/own_card.dart';
 import 'package:travel_picks/own_sized_box.dart';
-import 'package:travel_picks/text_Widget.dart';
+import 'package:travel_picks/text_widget.dart';
 
 void main() {
   runApp(const TravelApp());

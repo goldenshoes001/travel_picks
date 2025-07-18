@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_picks/text_Widget.dart';
+import 'package:travel_picks/text_widget.dart';
 import 'listausgelagert.dart';
 
 class OwnSizedBox extends StatelessWidget {

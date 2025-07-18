@@ -6,7 +6,7 @@ class TextWidget extends StatelessWidget {
   final double heightSizedBoxEins;
   final double heightSizedBoxZwei;
 
-  TextWidget({
+  const TextWidget({
     super.key,
     this.heightSizedBoxEins = 24,
     this.heightSizedBoxZwei = 8,
