@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:travel_picks/CountryCard.dart';
+import 'package:travel_picks/ownCard.dart';
+import 'package:travel_picks/landList.dart';
 
 void main() {
   runApp(const TravelApp());
@@ -44,22 +47,6 @@ class _TravelHomePageState extends State<TravelHomePage> {
     }
   }
 
-  static final List<Map<String, String>> europeCountries = [
-    {"emoji": "🇮🇹", "name": "Italien"},
-    {"emoji": "🇪🇸", "name": "Spanien"},
-    {"emoji": "🇩🇪", "name": "Deutschland"},
-    {"emoji": "🇫🇷", "name": "Frankreich"},
-    {"emoji": "🇳🇴", "name": "Norwegen"},
-  ];
-
-  static final List<Map<String, String>> southAmericaCountries = [
-    {"emoji": "🇧🇷", "name": "Brasilien"},
-    {"emoji": "🇦🇷", "name": "Argentinien"},
-    {"emoji": "🇨🇱", "name": "Chile"},
-    {"emoji": "🇵🇪", "name": "Peru"},
-    {"emoji": "🇨🇴", "name": "Kolumbien"},
-  ];
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -67,17 +54,7 @@ class _TravelHomePageState extends State<TravelHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Card(
-            elevation: 4,
-            color: Colors.lightBlueAccent,
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Text(
-                "🌎 Willkommen zu deinen Reiseinspirationen",
-                style: TextStyle(fontSize: 18, color: Colors.white),
-              ),
-            ),
-          ),
+          ownCard(),
           SizedBox(height: 24),
           const Text("Europa", style: TextStyle(fontSize: 18)),
           const SizedBox(height: 8),
@@ -85,7 +62,7 @@ class _TravelHomePageState extends State<TravelHomePage> {
             height: 140,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: europeCountries
+              children: Landlist.europeCountries
                   .map(
                     (country) => CountryCard(
                       emoji: country["emoji"]!,
@@ -103,7 +80,7 @@ class _TravelHomePageState extends State<TravelHomePage> {
             height: 140,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: southAmericaCountries
+              children: Landlist.southAmericaCountries
                   .map(
                     (country) => CountryCard(
                       emoji: country["emoji"]!,
@@ -130,40 +107,3 @@ class _TravelHomePageState extends State<TravelHomePage> {
 }
 
 //CountryCard
-class CountryCard extends StatelessWidget {
-  final String emoji;
-  final String name;
-  final VoidCallback? onTap;
-
-  const CountryCard({
-    super.key,
-    required this.emoji,
-    required this.name,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 120,
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        child: Card(
-          elevation: 4,
-          child: Padding(
-            padding: EdgeInsetsGeometry.symmetric(vertical: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(emoji, style: TextStyle(fontSize: 32)),
-                const SizedBox(height: 8),
-                Text(name),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
