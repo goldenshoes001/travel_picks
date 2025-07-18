@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:travel_picks/CountryCard.dart';
-import 'package:travel_picks/ownCard.dart';
-import 'package:travel_picks/landList.dart';
+import 'package:travel_picks/delete_favouriten_entry.dart';
+
+import 'package:travel_picks/land_list.dart';
+import 'package:travel_picks/own_card.dart';
+import 'package:travel_picks/own_sized_box.dart';
+import 'package:travel_picks/text_Widget.dart';
 
 void main() {
   runApp(const TravelApp());
@@ -47,6 +50,12 @@ class _TravelHomePageState extends State<TravelHomePage> {
     }
   }
 
+  void _removeCountry(String countryName) {
+    setState(() {
+      _selectedCountries.remove(countryName);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -54,51 +63,23 @@ class _TravelHomePageState extends State<TravelHomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ownCard(),
-          SizedBox(height: 24),
-          const Text("Europa", style: TextStyle(fontSize: 18)),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 140,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: Landlist.europeCountries
-                  .map(
-                    (country) => CountryCard(
-                      emoji: country["emoji"]!,
-                      name: country["name"]!,
-                      onTap: () => _addCountry(country["name"]!),
-                    ),
-                  )
-                  .toList(),
-            ),
+          OwnCard(),
+
+          OwnSizedBox(
+            function: _addCountry,
+            countries: Landlist.europeCountries,
+            name: "Europa",
           ),
-          const SizedBox(height: 24),
-          const Text("Südamerika", style: TextStyle(fontSize: 18)),
-          const SizedBox(height: 8),
-          SizedBox(
-            height: 140,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: Landlist.southAmericaCountries
-                  .map(
-                    (country) => CountryCard(
-                      emoji: country["emoji"]!,
-                      name: country["name"]!,
-                      onTap: () => _addCountry(country["name"]!),
-                    ),
-                  )
-                  .toList(),
-            ),
+
+          OwnSizedBox(
+            function: _addCountry,
+            countries: Landlist.southAmericaCountries,
+            name: "South America",
           ),
-          const SizedBox(height: 24),
-          const Text("Favoriten", style: TextStyle(fontSize: 18)),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            children: _selectedCountries
-                .map((name) => Chip(label: Text(name)))
-                .toList(),
+          TextWidget(text: "Favoriten"),
+          Favouriten(
+            selectedCountries: _selectedCountries,
+            onRemoveCountry: _removeCountry,
           ),
         ],
       ),
